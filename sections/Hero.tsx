@@ -68,15 +68,15 @@ export default function Hero() {
               </span>
             </div>
 
-            {/* Display name */}
-            <h1 className="display text-[clamp(2.75rem,9vw,8rem)] text-ink-50 mb-2 tracking-tightest">
-              Raja Hammad
-            </h1>
-            <h1 className="display text-[clamp(2.75rem,9vw,8rem)] text-ink-50 mb-8 tracking-tightest flex items-end gap-4 flex-wrap">
-              <span className="display-italic text-accent">Naseer.</span>
-              <span className="hidden md:inline-block w-16 h-px bg-ink-500 mb-5" />
-              <span className="text-sm font-mono text-ink-300 mb-2 tracking-wide normal-case">
-                [ fullstack engineer ]
+            {/* Display name — single H1 for SEO */}
+            <h1 className="display text-[clamp(2.75rem,9vw,8rem)] text-ink-50 mb-8 tracking-tightest">
+              <span className="block">Raja Hammad</span>
+              <span className="flex items-end gap-4 flex-wrap">
+                <span className="display-italic text-accent">Naseer.</span>
+                <span className="hidden md:inline-block w-16 h-px bg-ink-500 mb-5" />
+                <span className="text-sm font-mono text-ink-300 mb-2 tracking-wide normal-case">
+                  [ fullstack engineer ]
+                </span>
               </span>
             </h1>
 

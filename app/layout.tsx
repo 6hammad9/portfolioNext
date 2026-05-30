@@ -1,18 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import PaperOverlays from '@/components/PaperOverlays'
 import './globals.css'
 
-const inter = Inter({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  display: 'swap',
-})
-
-const mono = JetBrains_Mono({
-  variable: '--font-mono',
-  subsets: ['latin'],
-  display: 'swap',
-})
+// Fonts (Anton, Archivo, Newsreader, Space Mono) are loaded via the Google
+// Fonts <link> in <head> below — same source as the design reference.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
@@ -165,7 +156,7 @@ const personJsonLd = {
     '@type': 'Place',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Ilmenau',
+      addressLocality: '',
       addressCountry: 'DE',
     },
   },
@@ -188,8 +179,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Space+Mono:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -199,9 +196,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body
-        className={`${inter.variable} ${mono.variable} bg-ink-950 text-ink-100 antialiased font-sans selection:bg-amber-400/30 selection:text-amber-100`}
-      >
+      <body className="bg-paper text-ink antialiased font-serif">
+        <PaperOverlays />
         {children}
       </body>
     </html>

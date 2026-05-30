@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude / agent instructions (local only, not shipped)
+CLAUDE.md
+AGENTS.md
+.claude/
+
+# design references / handoffs (local only)
+design_handoff_plakat_portfolio/

@@ -64,21 +64,14 @@ export const metadata: Metadata = {
     firstName: 'Raja Hammad',
     lastName: 'Naseer',
     username: '6hammad9',
-    images: [
-      {
-        url: '/profile.jpg',
-        width: 800,
-        height: 800,
-        alt: `Portrait of ${NAME}`,
-      },
-    ],
+    // og:image is supplied by app/opengraph-image.tsx (the Plakat cover)
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
     description: DESCRIPTION,
     creator: '@6hammad9',
-    images: ['/profile.jpg'],
+    // twitter:image is supplied by app/twitter-image.tsx
   },
   robots: {
     index: true,

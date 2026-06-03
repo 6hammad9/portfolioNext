@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import PaperOverlays from '@/components/PaperOverlays'
+import SiteSchematic from '@/components/SiteSchematic'
 import './globals.css'
 
 // Fonts (Anton, Archivo, Newsreader, Space Mono) are loaded via the Google
@@ -191,6 +192,7 @@ export default function RootLayout({
       </head>
       <body className="bg-paper text-ink antialiased font-serif">
         <PaperOverlays />
+        <SiteSchematic />
         {children}
       </body>
     </html>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import PaperOverlays from '@/components/PaperOverlays'
 import SiteSchematic from '@/components/SiteSchematic'
 import './globals.css'
@@ -194,6 +195,7 @@ export default function RootLayout({
         <PaperOverlays />
         <SiteSchematic />
         {children}
+        <Analytics />
       </body>
     </html>
   )

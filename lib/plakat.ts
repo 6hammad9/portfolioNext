@@ -14,9 +14,9 @@ export const contact = {
 
 export const nav = [
   { id: 'ueber', de: 'Über', en: 'About' },
-  { id: 'koennen', de: 'Können', en: 'Skills' },
-  { id: 'projekte', de: 'Projekte', en: 'Work' },
   { id: 'werdegang', de: 'Werdegang', en: 'Career' },
+  { id: 'projekte', de: 'Projekte', en: 'Work' },
+  { id: 'koennen', de: 'Können', en: 'Skills' },
   { id: 'kontakt', de: 'Kontakt', en: '' },
 ] as const
 
@@ -134,13 +134,23 @@ export const projects: Project[] = [
 
 export const experience = [
   {
+    when: '2026 — heute · Ilmenau',
+    role: 'Machine Learning Intern',
+    org: 'Fraunhofer IOSB (Kognitive Energiesysteme)',
+    points: [
+      "Extending Amazon's <b>Chronos</b> foundation model for energy time-series forecasting: load, generation, electricity prices and weather data.",
+      "Profiling the existing implementation for accuracy, robustness and runtime against public energy-market datasets.",
+      "Designing and implementing extensions to the model architecture, adapting foundation-model methods to how energy markets behave.",
+    ],
+  },
+  {
     when: '2024 — 2025 · Pakistan',
     role: 'Full-Stack Developer',
     org: 'Jataq Technologies',
     points: [
-      "Delivered <b>3 production web applications with zero reported downtime</b> — architecting full-stack Node.js/React.js systems and owning Docker-based CI/CD pipelines from first commit through release.",
-      "Eliminated manual customer-support bottlenecks by building a <b>RAG pipeline</b>, engineering the prompt chain, and integrating it via REST API into the existing web infrastructure.",
-      "Shaped the company's AI tooling strategy by benchmarking competing <b>LLM frameworks</b> and presenting findings — adopted directly into the production stack.",
+      "Shipped three production web apps here, building the full Node.js/React stack and running the Docker CI/CD pipelines myself, from first commit to release.",
+      "Support was buried in repetitive questions, so I built a <b>RAG pipeline</b> to answer them, tuned the prompt chain, and wired it into the existing site over REST.",
+      "When the team needed a direction for its AI tooling, I benchmarked the main LLM frameworks, presented what I found, and we put the winner into the production stack.",
     ],
   },
   {
@@ -148,9 +158,9 @@ export const experience = [
     role: 'Artificial Intelligence Engineer',
     org: 'VisionTech360',
     points: [
-      "Shipped <b>EMACS</b> — a full-stack access-control platform — to production across multiple live camera installations: React.js dashboard, Node.js/Express REST API, MongoDB event store, all containerised with Docker.",
-      "Designed a <b>concurrent multi-stream backend</b> handling simultaneous video feeds with real-time whitelist state management and timestamped event logging — exposed cleanly to the frontend over REST.",
-      "Owned the deployment lifecycle from proof-of-concept to production; integrated <b>YOLOv8/ONNX inference</b> as a backend service with a repeatable Docker release workflow.",
+      "<b>EMACS</b> was my main build: a full access-control platform running live across several camera sites. React dashboard, Node/Express API, MongoDB, all in Docker.",
+      "Underneath it sits a concurrent backend I designed to handle several video feeds at once, tracking whitelist state in real time and timestamping every event.",
+      "I took it the whole way, proof of concept to production, running the YOLOv8/ONNX inference as its own service behind a repeatable Docker release.",
     ],
   },
 ]

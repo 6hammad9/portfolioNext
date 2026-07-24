@@ -6,7 +6,7 @@ export default function Experience() {
     <section className="sec" id="werdegang">
       <div className="wrap">
         <SectionHeader
-          no="05"
+          no="02"
           de="Werdegang / Experience"
           title={
             <>
@@ -14,7 +14,7 @@ export default function Experience() {
             </>
           }
           motif="rack"
-          metaLabel="2023 — 2025"
+          metaLabel="2023 — 2026"
         />
         <div className="cv" data-reveal>
           {experience.map((e) => (

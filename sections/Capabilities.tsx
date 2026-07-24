@@ -6,7 +6,7 @@ export default function Capabilities() {
     <section className="sec" id="koennen">
       <div className="wrap">
         <SectionHeader
-          no="02"
+          no="05"
           de="Fähigkeiten / Capabilities"
           title={
             <>

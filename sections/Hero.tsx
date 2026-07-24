@@ -30,9 +30,7 @@ function PhotoPlate() {
         </div>
       </div>
       <span className="pin" />
-      <div className="cap">
-        <b>Abb. 1</b> &nbsp;Raja Hammad Naseer
-      </div>
+      <div className="cap">Raja Hammad Naseer</div>
     </div>
   )
 }
@@ -115,9 +113,6 @@ export default function Hero() {
           </div>
           <div className="hero-side">
             <PhotoPlate />
-            <div className="stamp">
-              Verfügbar 2026<small>Werkstudent · Praktikum · Freelance</small>
-            </div>
             <Telemetry />
           </div>
         </div>

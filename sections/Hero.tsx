@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Schematic from '@/components/Schematic'
-import { contact } from '@/lib/plakat'
 
 function PhotoPlate() {
   return (
@@ -106,8 +105,8 @@ export default function Hero() {
               <a className="btn btn-fill" href="#projekte">
                 Projekte ansehen <span className="arr">↗</span>
               </a>
-              <a className="btn btn-out" href={contact.cv} download>
-                CV ↓
+              <a className="btn btn-out" href="#kontakt">
+                Kontakt <span className="arr">↓</span>
               </a>
             </div>
           </div>

@@ -9,7 +9,6 @@ export const contact = {
   linkedin: 'https://www.linkedin.com/in/6hammad9',
   github: 'https://github.com/6hammad9',
   website: 'https://www.rajahammadnaseer.com',
-  cv: '/cv/Hammad_CV.pdf',
 }
 
 export const nav = [
@@ -22,6 +21,9 @@ export const nav = [
 
 export const tickerItems = [
   'ROS2',
+  'Model Predictive Control',
+  'Cartographer SLAM',
+  'LiDAR',
   'Gazebo Sim',
   'Computer Vision',
   'YOLOv8',
@@ -46,8 +48,8 @@ export const capabilities = [
   {
     no: 'A / Robotik',
     title: 'Robotics & Autonomy',
-    body: 'ROS2-based autonomous-vehicle architectures, real-time perception and multi-object tracking — designed and validated in Gazebo simulation.',
-    tags: ['ROS2', 'Gazebo Sim', 'OpenCV', 'YOLOv8'],
+    body: 'ROS2-based autonomous-vehicle architectures — model-predictive control, map-based localization and LiDAR perception. Prototyped in Gazebo, then taken onto a physical vehicle driving continuous autonomous laps.',
+    tags: ['ROS2', 'MPC / CasADi', 'Cartographer SLAM', 'LiDAR'],
   },
   {
     no: 'B / KI',
@@ -79,6 +81,15 @@ export type Project = {
 export const projects: Project[] = [
   {
     no: '01',
+    type: 'Robotik · Autonomes Fahren',
+    title: 'Autonomous Overtaking — Quanser QCar 2 × ROSbot 2',
+    desc: 'A self-driving 1/10-scale vehicle on a physical indoor track. Cartographer pure-localization against a saved map, a CasADi/IPOPT model-predictive controller tracking a recorded trajectory at 12.5 Hz on the Jetson, and RPLidar-based detection driving a behaviour state machine that swings out, passes a moving ROSbot 2 and returns to the reference line. Tracking error 1–4 cm over continuous laps.',
+    stack: ['ROS 2 Humble', 'CasADi', 'IPOPT', 'Cartographer SLAM', 'RPLidar A2M12', 'Nav2', 'Python', 'C++'],
+    liveLabel: 'Live · physical vehicle',
+    chips: ['TU Ilmenau · privat'],
+  },
+  {
+    no: '02',
     type: 'AI · Retrieval / Backend',
     title: 'Air-Gapped Semantic Search Engine',
     desc: 'Three microservices — an ONNX embedding service (~3× faster on CPU), HNSW vector search returning the top-30 in ~10 ms, and a cross-encoder reranker for top-10 precision. Fully local, no external APIs.',
@@ -86,7 +97,7 @@ export const projects: Project[] = [
     links: [{ label: 'GitHub ↗', href: 'https://github.com/6hammad9' }],
   },
   {
-    no: '02',
+    no: '03',
     type: 'Fullstack · Computer Vision',
     title: 'EMACS — Multi-Camera Access Control',
     desc: 'A React.js dashboard + Node.js/Express REST API + MongoDB, deployed via Docker across multiple live camera installations. The backend integrates a YOLOv8/ONNX inference service for real-time face recognition and whitelist state management.',
@@ -95,7 +106,7 @@ export const projects: Project[] = [
     chips: ['Private · NDA'],
   },
   {
-    no: '03',
+    no: '04',
     type: 'Fullstack · Computer Vision',
     title: 'WorkAI — Industrial AI Monitoring',
     desc: 'A full-stack monitoring platform: a React.js real-time dashboard, Node.js REST APIs and MongoDB event logging, all containerised with Docker. Pose-estimation and face-recognition pipelines are exposed as backend services.',
@@ -103,7 +114,7 @@ export const projects: Project[] = [
     links: [{ label: 'GitHub ↗', href: 'https://github.com/6hammad9' }],
   },
   {
-    no: '04',
+    no: '05',
     type: 'Fullstack · Web',
     title: 'Campus Marketplace — TU Ilmenau',
     desc: 'A full-stack student marketplace built from scratch: user profiles, listings, search, filtering, an admin panel and a responsive UI — validated through user interviews with TU Ilmenau students.',
@@ -115,7 +126,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    no: '05',
+    no: '06',
     type: 'Fullstack · AI',
     title: 'CoverCare — AI Cover-Letter Generator',
     desc: 'Upload multiple CVs and paste a job link or description — CoverCare analyses your experience against the role and generates a tailored cover letter, then exports it as a polished PDF. Dual AI engine: Gemini 2.5 or local Llama 3.2 via Ollama.',
@@ -123,7 +134,7 @@ export const projects: Project[] = [
     links: [{ label: 'GitHub ↗', href: 'https://github.com/6hammad9' }],
   },
   {
-    no: '06',
+    no: '07',
     type: 'AI · Agents',
     title: 'AI Debate Agent',
     desc: 'An LLM agent with dynamic tool use: live web-search grounding, chain-of-thought reasoning, and structured argument / counter-argument output with citation tracking.',
@@ -136,11 +147,11 @@ export const experience = [
   {
     when: '2026 — heute · Ilmenau',
     role: 'Machine Learning Intern',
-    org: 'Fraunhofer IOSB (Kognitive Energiesysteme)',
+    org: 'Fraunhofer IOSB-AST (Sektorübergreifende Energiesysteme)',
     points: [
-      "Extending Amazon's <b>Chronos</b> foundation model for energy time-series forecasting: load, generation, electricity prices and weather data.",
-      "Profiling the existing implementation for accuracy, robustness and runtime against public energy-market datasets.",
-      "Designing and implementing extensions to the model architecture, adapting foundation-model methods to how energy markets behave.",
+      "<b>»Analysis and Extension of the LTM Implementation«</b> — analysing, evaluating and extending Amazon's <b>Chronos</b>, a Large Time Series Model, on energy-economic series: load, generation, electricity prices and weather data.",
+      "Profiling the existing implementation for functional scope, accuracy, robustness and runtime against public energy-market datasets, and identifying where it can be improved.",
+      "Designing and implementing a model architecture on top of that analysis, adapting foundation-model and deep-learning methods to the specific demands of energy markets.",
     ],
   },
   {
@@ -191,7 +202,7 @@ export const research: Research[] = [
     grade: 'Laufend · SS2026 Group Study',
     red: true,
     title: 'Modular ROS2 Autonomy',
-    body: 'Designing a modular autonomous-driving architecture with defined subsystem interfaces for perception, control and safety — coordinating multi-agent interaction in Gazebo Sim.',
+    body: 'A modular autonomous-driving architecture with defined subsystem interfaces for perception, control and safety. Taken from Gazebo onto a physical Quanser QCar 2: Cartographer localization, an MPC path follower and LiDAR-based overtaking of a moving ROSbot 2.',
   },
   {
     grade: 'Note 1,3 · Research Skills',
@@ -207,9 +218,9 @@ export const skillRows = [
     items: ['YOLOv8', 'ONNX Runtime', 'PyTorch', 'OpenCV', 'Model Training', 'ByteTrack', 'Roboflow'],
   },
   {
-    cat: 'Robotik & Simulation',
+    cat: 'Robotik & Autonomie',
     de: 'Autonomy',
-    items: ['ROS2', 'Gazebo Sim', 'Real-time Perception', 'Multi-Object Tracking'],
+    items: ['ROS2', 'Model Predictive Control', 'CasADi / IPOPT', 'Cartographer SLAM', 'LiDAR', 'Nav2', 'Gazebo Sim', 'Real-time Perception', 'Multi-Object Tracking'],
   },
   {
     cat: 'AI Integration',

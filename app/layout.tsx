@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import PaperOverlays from '@/components/PaperOverlays'
-import SiteSchematic from '@/components/SiteSchematic'
 import './globals.css'
 
-// Fonts (Anton, Archivo, Newsreader, Space Mono) are loaded via the Google
-// Fonts <link> in <head> below — same source as the design reference.
+// Fonts (Archivo, IBM Plex Mono) are loaded via the Google Fonts <link> in
+// <head> below — same source as the design reference.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
@@ -179,7 +177,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Space+Mono:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
         <script
@@ -191,9 +189,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className="bg-paper text-ink antialiased font-serif">
-        <PaperOverlays />
-        <SiteSchematic />
+      <body>
         {children}
         <Analytics />
       </body>

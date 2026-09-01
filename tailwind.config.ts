@@ -1,5 +1,8 @@
 import type { Config } from 'tailwindcss'
 
+// The Constellation design is expressed as component classes in app/globals.css,
+// where the exact prototype values live. These tokens mirror that palette so any
+// utility added later lands on the same five colours and two families.
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,52 +13,24 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        // Anton — display / poster headlines + big numerals
-        poster: ['Anton', 'Impact', 'sans-serif'],
-        // Archivo — UI / labels / project titles
-        grot: ['Archivo', 'system-ui', 'sans-serif'],
-        // Newsreader — editorial body serif
-        serif: ['Newsreader', 'Georgia', 'serif'],
-        // Space Mono — technical labels
-        mono: ['Space Mono', 'monospace'],
+        // Archivo — everything structural
+        sans: ['Archivo', 'Helvetica', 'sans-serif'],
+        // IBM Plex Mono — every label, meta, caption, kicker, nav
+        mono: ['IBM Plex Mono', 'monospace'],
       },
       colors: {
-        paper: {
-          DEFAULT: '#ece2cd', // warm cream stock
-          2: '#e4d8bd', // panel / card fill
-          dk: '#ddcfb0', // deeper paper tone
-        },
-        ink: {
-          DEFAULT: '#1c1712', // warm near-black
-          soft: '#4a4136', // secondary body
-          mute: '#8a7d68', // captions / meta
-        },
-        red: {
-          DEFAULT: '#c5341b', // vermillion — the ONE accent
-          dk: '#a02611', // accent text on light bg
-        },
-        led: '#4fae6a', // live/online status dot only
+        ink: '#121110', // page ground
+        panel: '#161513', // side panel, detail sheet
+        paper: '#ece7dd', // foreground
+        accent: 'oklch(0.66 0.18 34)', // focus, kickers, link hover
       },
       letterSpacing: {
         tightest: '-0.04em',
-        tighter: '-0.02em',
+        tighter: '-0.03em',
       },
       maxWidth: {
-        plakat: '1240px',
-      },
-      animation: {
-        // ticker marquee (translateX 0 -> -50% over 38s)
-        ticker: 'ticker 38s linear infinite',
-        pulse: 'pulse 1.8s ease-in-out infinite',
-      },
-      keyframes: {
-        ticker: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-50%)' },
-        },
-        pulse: {
-          '50%': { opacity: '0.35' },
-        },
+        cv: '860px',
+        sheet: '880px',
       },
     },
   },

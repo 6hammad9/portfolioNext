@@ -156,12 +156,12 @@ export const experience = [
   },
   {
     when: '2024 — 2025 · Pakistan',
-    role: 'Full-Stack Developer',
+    role: 'RAG Developer',
     org: 'Jataq Technologies',
     points: [
-      "Shipped three production web apps here, building the full Node.js/React stack and running the Docker CI/CD pipelines myself, from first commit to release.",
       "Support was buried in repetitive questions, so I built a <b>RAG pipeline</b> to answer them, tuned the prompt chain, and wired it into the existing site over REST.",
       "When the team needed a direction for its AI tooling, I benchmarked the main LLM frameworks, presented what I found, and we put the winner into the production stack.",
+      "Shipped three production web apps here, building the full Node.js/React stack and running the Docker CI/CD pipelines myself, from first commit to release.",
     ],
   },
   {

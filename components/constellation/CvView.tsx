@@ -1,4 +1,5 @@
 import {
+  CV_CERTIFICATIONS,
   CV_CONTACT,
   CV_EDUCATION,
   CV_EXPERIENCE,
@@ -6,6 +7,7 @@ import {
   CV_LEDE,
   CV_PUBLICATIONS,
   CV_SKILLS,
+  CV_WORKSHOPS,
   type CvRow,
 } from '@/lib/constellation'
 
@@ -54,6 +56,20 @@ export default function CvView({ onBack }: Props) {
         <div className="cn-cv-section">
           <span className="cn-kicker">Education</span>
           {CV_EDUCATION.map((row) => (
+            <Row key={row.role} row={row} />
+          ))}
+        </div>
+
+        <div className="cn-cv-section">
+          <span className="cn-kicker">Certifications</span>
+          {CV_CERTIFICATIONS.map((row) => (
+            <Row key={row.role} row={row} />
+          ))}
+        </div>
+
+        <div className="cn-cv-section">
+          <span className="cn-kicker">Workshops</span>
+          {CV_WORKSHOPS.map((row) => (
             <Row key={row.role} row={row} />
           ))}
         </div>

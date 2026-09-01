@@ -292,6 +292,25 @@ export const CV_EDUCATION: CvRow[] = [
   },
 ]
 
+export const CV_CERTIFICATIONS: CvRow[] = [
+  {
+    meta: "Data analytics",
+    role: "Google Data Analytics Professional Certificate",
+  },
+  {
+    meta: "Backend",
+    role: "Node.js: The Complete Guide — MVC, REST APIs, GraphQL",
+  },
+]
+
+export const CV_WORKSHOPS: CvRow[] = [
+  {
+    meta: "2025 · Fraunhofer IOSB-AST",
+    role: "Dataspaces",
+    note: "Hands-on session on secure, sovereign data infrastructure — data consumption and contract negotiation flows.",
+  },
+]
+
 export type CvPublication = { meta: string; title: string; href: string }
 
 export const CV_PUBLICATIONS: CvPublication[] = [
@@ -321,7 +340,7 @@ export const CV_SKILLS: { label: string; list: string }[] = [
   { label: "Tooling", list: "Docker · CI/CD · GitHub Actions · Git · Linux" },
 ]
 
-export const CV_LANGUAGES = "English C1 · German B1 · Urdu native"
+export const CV_LANGUAGES = "English C1 full professional · German B1 · Urdu native"
 
 /* ===================================================================
    About panel — the centre of the map.

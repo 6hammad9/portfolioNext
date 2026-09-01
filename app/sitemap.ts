@@ -6,12 +6,11 @@ const SITE_URL =
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
-  const sections = ['', '#about', '#skills', '#experience', '#projects', '#contact']
 
-  return sections.map((s) => ({
-    url: `${SITE_URL}/${s}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: s === '' ? 1 : 0.7,
-  }))
+  // Only real routes. The old entries pointed at #about / #projects and friends,
+  // which were section anchors in the previous layout and no longer exist.
+  return [
+    { url: SITE_URL, lastModified: now, changeFrequency: 'monthly', priority: 1 },
+    { url: `${SITE_URL}/cv`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+  ]
 }

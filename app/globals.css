@@ -686,6 +686,25 @@ a:hover {
   padding: 96px 40px 80px;
 }
 
+/* Standalone /cv route. Same type and tokens as the overlay above, but it sits
+   in normal flow instead of being pinned over the map. */
+.cv-page {
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 72px 40px 80px;
+}
+
+.cv-page .cn-cv-role {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .cv-page {
+    padding: 48px 20px 64px;
+  }
+}
+
 .cn-cv-inner {
   max-width: 860px;
   margin: 0 auto;

@@ -64,8 +64,12 @@ a {
   color: var(--paper);
   text-decoration: none;
 }
-a:hover {
-  color: var(--accent);
+/* Guarded: on a touchscreen a tap latches :hover until the next tap
+   elsewhere, so an un-guarded hover state reads as a stuck selection. */
+@media (hover: hover) {
+  a:hover {
+    color: var(--accent);
+  }
 }
 
 ::selection {
@@ -101,6 +105,10 @@ a:hover {
   color: inherit;
   font: inherit;
   text-align: left;
+  /* These buttons are list rows and node labels, not chrome: the default
+     iOS/Android tap flash around them looks like a rendering fault. */
+  -webkit-tap-highlight-color: rgba(236, 231, 221, 0.08);
+  -webkit-touch-callout: none;
 }
 
 /* ===================================================================
@@ -194,9 +202,11 @@ a:hover {
     border-color 200ms ease,
     color 200ms ease;
 }
-.cn-toggle:hover {
-  border-color: var(--accent);
-  color: var(--paper);
+@media (hover: hover) {
+  .cn-toggle:hover {
+    border-color: var(--accent);
+    color: var(--paper);
+  }
 }
 
 /* ===================================================================
@@ -290,6 +300,7 @@ a:hover {
   border-left: 1px solid var(--fg-14);
   box-shadow: -40px 0 80px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 80px 40px 48px;
 }
 
@@ -303,11 +314,21 @@ a:hover {
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.cn-close:hover {
-  color: var(--paper);
+@media (hover: hover) {
+  .cn-close:hover {
+    color: var(--paper);
+  }
 }
 .cn-close--sheet {
   right: 26px;
+}
+
+/* .cn-cv is opaque and sits above .cn-header, so nothing in the header can be
+   used to leave it. Its close control is fixed rather than absolute because the
+   overlay is itself the scroll container — an absolute one scrolls out of reach. */
+.cn-cv .cn-close {
+  position: fixed;
+  z-index: 90;
 }
 
 .cn-kicker {
@@ -356,9 +377,11 @@ a:hover {
     padding-left 240ms ease,
     background 240ms ease;
 }
-.cn-entry:hover {
-  padding-left: 12px;
-  background: var(--fg-035);
+@media (hover: hover) {
+  .cn-entry:hover {
+    padding-left: 12px;
+    background: var(--fg-035);
+  }
 }
 
 .cn-entry-row {
@@ -527,6 +550,7 @@ a:hover {
   width: min(880px, 100%);
   max-height: 100%;
   overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--panel);
   border: 1px solid var(--fg-16);
   padding: 52px 56px 48px;
@@ -683,6 +707,7 @@ a:hover {
   z-index: 70;
   background: var(--ink);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 96px 40px 80px;
 }
 
@@ -897,5 +922,354 @@ a:hover {
   }
   .cn-stats {
     gap: 14px;
+  }
+}
+
+/* ===================================================================
+   9. Phones, and landscape windows too short to hold the map.
+
+   The node map is a desktop instrument. Its ten labels are pinned to
+   hard percentages of the viewport with white-space: nowrap, which at
+   390px means "Data Analysis" hangs 24px off the right edge, at 360px
+   "Computer Vision" and "Research" overlap by 47px, and "Research"
+   sits under the header. Scaling the type down far enough to fit would
+   leave nine labels too small to read and too close to tap.
+
+   So below 700px the map stops pretending to be a map and becomes what
+   it is underneath: an index of nine threads with the person at the
+   top. Same component, same DOM, same order — no second tree to keep
+   in sync with the first.
+
+   The node coordinates arrive as inline styles from the component, so
+   the !important declarations below are not laziness; a stylesheet has
+   no other way to unpin an inline left/top.
+   =================================================================== */
+@media (max-width: 700px), (max-height: 520px) and (orientation: landscape) {
+  /* The front page scrolls again. It was a 100vh box with
+     overflow: hidden, which on a phone also meant the browser's URL bar
+     never retracted, because the document itself never scrolled. */
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .cn-root {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Decoration tuned to a 1440px sheet. The glyphs are fixed-pixel
+     technical drawings at percentage offsets, so on a phone they land on
+     top of the list instead of in the gaps around it; the vignette would
+     darken a page that now scrolls past where it ends; the edge lines
+     join coordinates that no longer exist. */
+  .cn-glyphs,
+  .cn-vignette,
+  .cn-lines,
+  .cn-hint {
+    display: none;
+  }
+
+  /* Fixed, so the grid stays a backdrop instead of scrolling as a
+     texture, and halved to stay in proportion at this width. */
+  .cn-grid {
+    position: fixed;
+    background-size: 48px 48px;
+    opacity: 0.4;
+  }
+
+  /* --- header ---------------------------------------------------------
+     Three children needing ~617px of intrinsic width in a 390px
+     viewport: the name, a status line, and the toggle (nowrap). Flex
+     had no choice but to wrap the first two into a block deep enough to
+     cover the top of the map. The status line is the one with no job —
+     it narrates, it does not navigate — so it goes, and the two real
+     controls are allowed to wrap past each other on the narrowest
+     phones rather than being crushed. */
+  .cn-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    padding: 10px 16px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    background: var(--ink);
+    border-bottom: 1px solid var(--fg-13);
+  }
+
+  .cn-header-right > span {
+    display: none;
+  }
+
+  /* 44px is the Apple HIG minimum; these were 13px tall. */
+  .cn-header-name,
+  .cn-toggle {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .cn-toggle {
+    padding: 0 12px;
+    letter-spacing: 0.08em;
+  }
+
+  /* --- the map, as a list --------------------------------------------- */
+  .cn-map {
+    position: static;
+    display: block;
+  }
+
+  .cn-node {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    /* the component dims unconnected nodes to 0.22; in a list there is
+       nothing to be unconnected from */
+    opacity: 1 !important;
+    display: grid;
+    grid-template-columns: 9px minmax(0, 1fr) auto;
+    align-items: center;
+    justify-items: start;
+    gap: 0 14px;
+    width: 100%;
+    min-height: 64px;
+    padding: 17px 16px;
+    padding-left: calc(16px + env(safe-area-inset-left, 0px));
+    padding-right: calc(16px + env(safe-area-inset-right, 0px));
+    border-bottom: 1px solid var(--fg-13);
+  }
+
+  .cn-node-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .cn-node-label {
+    font-size: 20px;
+    /* nowrap was protecting the two-word labels from pushing the meta
+       line out of a grid gap that no longer exists */
+    white-space: normal;
+  }
+
+  .cn-node-meta {
+    justify-self: end;
+    /* 10px at 0.38 alpha is 3.1:1 — under AA, and this is the smallest
+       type on the page */
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--fg-55);
+  }
+
+  /* The person is the first row, and reads as the heading it is. */
+  .cn-node--core {
+    padding-top: 26px;
+    padding-bottom: 26px;
+    border-bottom-color: var(--fg-22);
+  }
+
+  .cn-node--core .cn-node-label {
+    font-size: 27px;
+  }
+
+  /* --- overlays -------------------------------------------------------
+     All four were absolute inside a 100vh root. Now that the root grows
+     with its content, absolute would stretch them to the height of the
+     whole document and strand their controls at a scroll offset the
+     reader has already passed. Fixed pins them to the viewport. */
+  .cn-beat,
+  .cn-panel,
+  .cn-scrim,
+  .cn-cv {
+    position: fixed;
+    inset: 0;
+  }
+
+  /* --- entry beat ---
+     place-items: center inside overflow: hidden clipped the cover in
+     landscape, where the stack needs ~394px in a 390px viewport and
+     there was no way to scroll to the rest. The 1fr rows centre it when
+     it fits and collapse to a 20px margin when it does not. */
+  .cn-beat {
+    grid-template-rows: minmax(20px, 1fr) auto minmax(20px, 1fr);
+    justify-items: center;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .cn-beat-inner {
+    grid-row: 2;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .cn-beat-eyebrow {
+    letter-spacing: 0.18em;
+    color: var(--fg-55);
+  }
+
+  .cn-beat-body {
+    font-size: 16px;
+  }
+
+  /* --- side panel ---
+     Full-bleed already, but it covers .cn-header (z-50 over z-40), so
+     the close control is the only exit and has to be both visible and
+     big enough to hit. */
+  .cn-panel {
+    width: 100%;
+    height: 100dvh;
+    border-left: none;
+    box-shadow: none;
+    padding: calc(env(safe-area-inset-top, 0px) + 68px) 20px
+      calc(env(safe-area-inset-bottom, 0px) + 48px);
+  }
+
+  .cn-close {
+    position: fixed;
+    z-index: 90;
+    top: calc(env(safe-area-inset-top, 0px) + 8px);
+    right: calc(env(safe-area-inset-right, 0px) + 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+    background: var(--panel);
+    border: 1px solid var(--fg-22);
+    color: var(--fg-75);
+  }
+
+  .cn-close--sheet {
+    right: calc(env(safe-area-inset-right, 0px) + 10px);
+  }
+
+  .cn-panel-title {
+    font-size: 27px;
+  }
+
+  /* A title and a nowrap tag sharing one justify-between row: at 342px
+     of content width the longest pairs here ("Benchmarking Real-Time MOT
+     in Aerial Surveillance" / "CCSE2026") leave the tag nowhere to go. */
+  .cn-entry-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .cn-entry-tag {
+    white-space: normal;
+    color: var(--fg-55);
+  }
+
+  .cn-entry {
+    padding: 20px 0;
+  }
+
+  .cn-entry-title {
+    font-size: 18px;
+  }
+
+  /* --- detail sheet ---
+     A centred card with gutters is a desktop shape. On a phone the
+     entry takes the whole screen, which is also what makes the 280px
+     screenshot grid fit. */
+  .cn-scrim {
+    place-items: stretch;
+    padding: 0;
+    backdrop-filter: none;
+  }
+
+  .cn-sheet {
+    width: 100%;
+    max-height: none;
+    min-height: 100%;
+    border: none;
+    padding: calc(env(safe-area-inset-top, 0px) + 68px) 20px
+      calc(env(safe-area-inset-bottom, 0px) + 48px);
+  }
+
+  .cn-sheet-title {
+    font-size: 26px;
+    max-width: none;
+  }
+
+  .cn-sheet-body {
+    font-size: 16px;
+  }
+
+  .cn-shots {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cn-shot-cap,
+  .cn-caption {
+    color: var(--fg-55);
+  }
+
+  /* --- CV overlay --- */
+  .cn-cv {
+    padding: calc(env(safe-area-inset-top, 0px) + 68px) 18px
+      calc(env(safe-area-inset-bottom, 0px) + 56px);
+  }
+
+  .cn-cv-inner {
+    gap: 40px;
+  }
+
+  .cn-cv-name {
+    font-size: 30px;
+  }
+
+  .cn-cv-meta,
+  .cn-cv-eyebrow,
+  .cn-cv-skill-label,
+  .cn-stat-label {
+    color: var(--fg-55);
+  }
+
+  .cn-cv-back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Underlined mono links sitting 17px tall in a wrapped row. */
+  .cn-link,
+  .cn-sheet-link,
+  .cn-cv-contact a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+
+  .cn-links,
+  .cn-sheet-links,
+  .cn-cv-contact {
+    gap: 4px 18px;
+  }
+}
+
+/* Very narrow phones — 360px and below, where the two-column stat grid
+   leaves 155px per cell and the figures collide with their own labels. */
+@media (max-width: 380px) {
+  .cn-stats {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .cn-node-label {
+    font-size: 18px;
+  }
+
+  .cn-node--core .cn-node-label {
+    font-size: 24px;
   }
 }

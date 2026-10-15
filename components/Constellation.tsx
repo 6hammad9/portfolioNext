@@ -95,6 +95,18 @@ export default function Constellation() {
     setDetail(null)
   }, [])
 
+  // On phones the front page scrolls (globals.css §9), so an open overlay has a
+  // live document behind it that would otherwise move under the reader's thumb.
+  // A no-op on desktop, where the body never scrolls to begin with.
+  useEffect(() => {
+    if (active === null && detail === null && !plain && entered) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previous
+    }
+  }, [active, detail, plain, entered])
+
   // Escape unwinds the sheet, then the panel.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

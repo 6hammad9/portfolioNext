@@ -27,6 +27,13 @@ function Row({ row }: { row: CvRow }) {
 export default function CvView({ onBack }: Props) {
   return (
     <div className="cn-cv">
+      {/* This overlay is opaque and sits above .cn-header, so nothing in the
+          header can be used to leave it. Without this the only way back was
+          the button at the foot of the whole CV. */}
+      <button type="button" className="cn-btn cn-close" onClick={onBack}>
+        Close ×
+      </button>
+
       <div className="cn-cv-inner">
         <div className="cn-cv-head">
           <span className="cn-cv-eyebrow">The boring version, as requested</span>
